@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Login</title>
+    <style>
+    </style>
+</head>
+<body>
+{% include "nav/user_nav.html" %}
+
+
+<!--<h6>{{msg}}</h6>-->
+  <!--Update Board Name Modal-->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="updateModalLabel">Update Board Name</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form>
+                  <div class="modal-body">
+
+
+                      <div class="form-group">
+                        <input type="text" name="new_board_name" placeholder="New Board Name" class="form-control" id="update_board" required>
+                      </div>
+
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="update_board_name" class="btn btn-primary">Update Board</button>
+                  </div>
+        </form>
+    </div>
+  </div>
+</div>
+<!--End of Board Name Modal-->
+
+<div class="py-5">
+<center>
+
+            {{html_table}}
+
+</center>
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+$(".update").click(function() {
+  board_name = this.value;
+  board_name = board_name.trim();
+
+  $('#updateModal').modal('show')
+
+
+
+  <!--console.log("New Board Name:",new_board_name);-->
+});
+
+$("#update_board_name").click(function()
+{
+
+    var new_board_name = $('#update_board').val();
+    if(new_board_name.length>0)
+    {
+        // /update/<board_name>/<new_board_name>
+        console.log("Old Board Name:",board_name);
+        console.log("New Board Name:",new_board_name);
+        board_name = board_name.trim();
+        update_route_link = "/update/" + String(board_name)+'/'+String(new_board_name);
+        update_route_link = update_route_link.trim();
+        console.log("Updated Route Link:",update_route_link);
+        $('#updateModal').modal('hide');
+        window.location.href = update_route_link;
+    }
+    else
+    {
+
+        $('#updateModal').modal('hide');
+    }
+
+
+});
+
+$(".delete").click(function() {
+  board_name = this.value;
+  board_name = board_name.trim();
+  delete_route_link = "/delete/"+ String(board_name);
+  console.log(delete_route_link);
+  window.location.href = delete_route_link;
+});
+</script>
+</html>
