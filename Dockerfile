@@ -18,6 +18,7 @@ COPY . /app
 ENV PATH /app:$PATH
 
 # It executes the command python app.py in the app directory.
-CMD ["gunicorn", "app:app", "-b", "0.0.0.0:8002"]
+# start gunicorn
+CMD ["gunicorn","--config","/app/gunicorn_config.py","app:app"]
 
 EXPOSE 8002
