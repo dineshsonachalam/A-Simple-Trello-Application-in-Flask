@@ -22,4 +22,4 @@ app.register_blueprint(boards_blueprint)
 if __name__ == '__main__':
     app_host = os.environ.get('APP_HOST') or '0.0.0.0'
     app_port = os.environ.get('APP_PORT') or 8002
-    app.run(host=app_host, port=app_port, debug=True, threaded=True)
+    app.run(host=app_host, port=app_port, debug=False, threaded=True)
